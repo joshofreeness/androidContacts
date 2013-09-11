@@ -6,4 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="add_contact">add contact</string>
     <string name="sort_by">Sort by</string>
+    
+    
 </resources>
