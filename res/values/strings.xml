@@ -6,6 +6,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="add_contact">add contact</string>
     <string name="sort_by">Sort by</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="mobile">Mobile Ph</string>
+    <string name="mobile_number_hint">mobile number</string>
+    <string name="home_number_hint">home number</string>
+    <string name="home">Home Ph  </string>
+    <string name="email">Email    </string>
+    <string name="email_address_hint">email address</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="work">Work Ph</string>
+    <string name="work_number_hint">work number</string>
+    <string name="home_address_text">Home Address</string>
+    <string name="home_address_hint">home address</string>
+    <string name="save_contact">Save</string>
+    <string name="back_cancel">Cancel</string>
     
     
 </resources>
