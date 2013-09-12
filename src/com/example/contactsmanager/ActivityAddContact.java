@@ -1,6 +1,7 @@
 package com.example.contactsmanager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,10 +10,12 @@ import android.widget.EditText;
 
 
 public class ActivityAddContact extends Activity{
+	Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+        context = getApplicationContext();
 
     }
     
@@ -48,10 +51,10 @@ public class ActivityAddContact extends Activity{
             	String homeAddress = textHomeAddress.getText().toString();
             	
             	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
-            			homeAddress, null, null);
+            			homeAddress, "a", "b");
             	
             	ContactList list = ContactList.getInstance();
-            	if (list.saveContact(contact)){
+            	if (list.saveContact(contact, context)){
             		finish();            		
             	}else{
             		Intent startNewActivityOpen = new Intent(ActivityAddContact.this, AlreadyExists.class);

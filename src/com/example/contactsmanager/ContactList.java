@@ -1,13 +1,16 @@
 package com.example.contactsmanager;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
+import android.app.Activity;
 import android.content.Context;
+
 
 
 public class ContactList {
 	   private static ContactList INSTANCE;
-	   private static Context context;
+
 
 	   //Singleton pattern
 	   private ContactList() {}
@@ -19,16 +22,29 @@ public class ContactList {
 			  return INSTANCE;
 	 }
 	   
-	   public boolean saveContact(Contact c){
-		   return false;
-		/*   String[] values = c.getDetails();
-			File file = new File(context.getFilesDir(), values[0] + "_" + values[1] 
-					+ ".contact");
+	   public boolean saveContact(Contact c, Context context){
+		   
+		   String[] values = c.getDetails();
+		   FileOutputStream outputStream;
+		   String fileName = values[0] + "_" + values[1] 
+					+ ".contact";
+			File file = new File(context.getFilesDir(),fileName);
+			
 			if (file.exists()){
 				return false;
 			}else{
-				return false;
-			}*/
+				
+
+				try {
+				  outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+				  outputStream.write(values.toString().getBytes());
+				  outputStream.close();
+				} catch (Exception e) {
+				  e.printStackTrace();
+				}
+				
+				return true;
+			}
 			
 		   
 
