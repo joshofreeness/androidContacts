@@ -40,7 +40,7 @@ public class ActivityMain extends Activity {
               public void onItemClick(AdapterView<?> parent, final View view,
                   int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
-               openAdd();
+               openView();
                   
               }
 
@@ -67,6 +67,11 @@ public class ActivityMain extends Activity {
     
     private void openAdd(){
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ActivityAddContact.class);
+    	startActivityForResult(startNewActivityOpen, 0);
+    }
+    
+    private void openView(){
+    	Intent startNewActivityOpen = new Intent(ActivityMain.this, ContactView.class);
     	startActivityForResult(startNewActivityOpen, 0);
     }
 

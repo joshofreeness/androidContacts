@@ -22,11 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".ActivityAddContact"
             	android:label="@string/add_contact"   ></activity>     
+            	
         <activity android:name=".AlreadyExists"
 			android:theme="@android:style/Theme.Dialog"
 			android:label="@string/already_exists_title"></activity>
+        
+        <activity android:name=".ContactView"
+            android:label="@string/contact_view_title"></activity>
     </application>
 
 </manifest>

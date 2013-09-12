@@ -21,8 +21,9 @@
     <string name="save_contact">Save</string>
     <string name="back_cancel">Cancel</string>
     <string name="already_exists">A contact with the same first and last name already exists, please change the name and try again</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="already_exists_title">The Contact Already Exists</string>
+    <string name="contact_view_title">View Contact</string>
     
     
 </resources>
