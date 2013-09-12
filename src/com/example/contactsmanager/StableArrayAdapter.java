@@ -1,6 +1,8 @@
 package com.example.contactsmanager;
 
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,14 @@ import android.content.Context;
 
 public class StableArrayAdapter extends ArrayAdapter<String> {
 	  private final Context context;
-	  private final String[] values;
+	  private final ArrayList<String> names;
+	  private final ArrayList<String> nums;
 
-	  public StableArrayAdapter(Context context, String[] values) {
-	    super(context, R.layout.row_layout, values);
+	  public StableArrayAdapter(Context context, ArrayList<String> name, ArrayList<String> num) {
+	    super(context, R.layout.row_layout, name);
 	    this.context = context;
-	    this.values = values;
+	    this.names = name;
+	    this.nums=num;
 	  }
 
 	  @Override
@@ -28,10 +32,10 @@ public class StableArrayAdapter extends ArrayAdapter<String> {
 	    TextView textView = (TextView) rowView.findViewById(R.id.label);
 	    ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 	    TextView numbers = (TextView) rowView.findViewById(R.id.secondLine);
-	    textView.setText(values[position]);
-	    numbers.setText("021 278 36128");
+	    textView.setText(names.get(position));
+	    numbers.setText(nums.get(position));
 	    // Change the icon for Windows and iPhone
-	    String s = values[position];
+	    String s = names.get(position);
 	    imageView.setImageResource(R.drawable.ic_launcher);
 
 	    return rowView;

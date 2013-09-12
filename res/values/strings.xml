@@ -4,7 +4,7 @@
     <string name="app_name">Contacts</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="add_contact">add contact</string>
+    <string name="add_contact">Add Contact</string>
     <string name="sort_by">Sort by</string>
     <string name="first_name_hint">First Name</string>
     <string name="mobile">Mobile Ph</string>
@@ -20,6 +20,9 @@
     <string name="home_address_hint">home address</string>
     <string name="save_contact">Save</string>
     <string name="back_cancel">Cancel</string>
+    <string name="already_exists">A contact with the same first and last name already exists, please change the name and try again</string>
+    <string name="ok">Ok</string>
+    <string name="already_exists_title">The Contact Already Exists</string>
     
     
 </resources>

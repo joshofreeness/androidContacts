@@ -22,13 +22,16 @@ public class ActivityMain extends Activity {
         
         String[] values = getStringContacts();
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-          list.add(values[i]);
+        final ArrayList<String> listName = new ArrayList<String>();
+        for (int i = 0; i < values.length; i=i+2) {
+          listName.add(values[i]);
         }
-        //When changing to contacts objects change list to object list to send to
-        //StableArrayAdapter
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, values);
+        final ArrayList<String> listNum = new ArrayList<String>();
+        for (int i = 1; i < values.length; i=i+2) {
+          listNum.add(values[i]);
+        }
+        
+        final StableArrayAdapter adapter = new StableArrayAdapter(this, listName,listNum);
             listview.setAdapter(adapter);
 
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,12 +78,9 @@ public class ActivityMain extends Activity {
     }
     
     private String[] getStringContacts(){
-    	String[] values = new String[] { "Jo Blogs", "Richard Banks",
-    			"Suzy Sue", "Lucy Luu", "Someone Awesome", "Joe blogs brother",
-    			"Nancy Drew", "Hermione Granger", "Dr Who", "Philip Gong",
-    			"Captain Kirk", "Spok", "JajaBinks", "Sally Anne", "That Guy",
-    			"That Girl"
-    	};
+    	ContactList cList = ContactList.getInstance();
+    	String[] values = cList.getList();
+   
 		return values;
     	
     }
