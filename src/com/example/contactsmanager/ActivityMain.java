@@ -73,6 +73,7 @@ public class ActivityMain extends Activity {
     
     private void openView(String item){
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ContactView.class);
+    	startNewActivityOpen.putExtra("name",item);
     	startActivityForResult(startNewActivityOpen, 0);
     }
 

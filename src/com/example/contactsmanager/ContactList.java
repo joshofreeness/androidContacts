@@ -52,8 +52,8 @@ public class ContactList {
 	   
 	   public String[] getList(){
 		   String[] values = new String[] { "Jo Blogs","2314568", "Richard Banks",
-	    			"58497565","Suzy Sue","13254678", "Lucy Luu","0210254789", "Someone Awesome", "Joe blogs brother",
-	    			"13584987","Nancy Drew","74152346","8521345", "Hermione Granger","123", "Dr Who","1","Philip Gong",
+	    			"58497565","Suzy Sue","13254678", "Lucy Luu","0210254789", "Someone Awesome","123", "Joe blogs brother",
+	    			"13584987","Nancy Drew","74152346", "Hermione Granger","123", "Dr Who","1","Philip Gong",
 	    			"15478954","Captain Kirk","007", "Spok","7541325", "JajaBinks","666", "Sally Anne","45", "That Guy",
 	    			"578945102","That Girl","587913248"};
 		   

@@ -3,16 +3,23 @@ package com.example.contactsmanager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ContactView extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent myIntent = getIntent();
         setContentView(R.layout.contact_view);
+        String name = myIntent.getStringExtra("name");
+        TextView textView = (TextView)findViewById(R.id.contact_first_name);
+        textView.setText(name);
+        
     }
     
     @Override
