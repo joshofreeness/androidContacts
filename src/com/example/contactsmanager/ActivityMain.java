@@ -39,8 +39,9 @@ public class ActivityMain extends Activity {
               @Override
               public void onItemClick(AdapterView<?> parent, final View view,
                   int position, long id) {
+            	  //returns name of contact pressed
                 final String item = (String) parent.getItemAtPosition(position);
-               openView();
+               openView(item);
                   
               }
 
@@ -70,7 +71,7 @@ public class ActivityMain extends Activity {
     	startActivityForResult(startNewActivityOpen, 0);
     }
     
-    private void openView(){
+    private void openView(String item){
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ContactView.class);
     	startActivityForResult(startNewActivityOpen, 0);
     }

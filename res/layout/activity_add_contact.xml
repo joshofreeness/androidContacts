@@ -24,7 +24,7 @@
     	android:layout_alignBottom="@id/contact_image"
     	android:layout_marginBottom="24dip"
     	android:layout_marginRight="6dip"
-    	android:hint="@string/first_name_hint"
+    	android:hint="@string/last_name_hint"
     	android:inputType="textCapWords" />
     
     <EditText
@@ -35,7 +35,7 @@
     	android:layout_toRightOf="@id/contact_image"
     	android:layout_marginBottom="4dip"
     	android:layout_marginRight="6dip"
-    	android:hint="@string/last_name_hint"
+    	android:hint="@string/first_name_hint"
     	android:inputType="textCapWords" />
 
 	<LinearLayout

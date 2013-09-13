@@ -1,6 +1,8 @@
 package com.example.contactsmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,11 +29,27 @@ public class ContactView extends Activity{
         switch (item.getItemId()) {
             case R.id.action_delete_contact:
                 //TODO: edit contact
-            	//must send details about current contact
-            	//to partially fill new contact or something similar
+            	new AlertDialog.Builder(this)
+                .setTitle("Delete contact")
+                .setMessage("Are you sure you want to delete this contact?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { 
+                        //delete contact
+                    	finish();
+                    }
+                 })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { 
+                        // do nothing
+                    }
+                 })
+                 .show();
+            	
                 return true;
             case R.id.action_edit_contact:
                 //TODO: add what to do when edit
+            	//must send details about current contact
+            	//to partially fill new contact or something similar
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
