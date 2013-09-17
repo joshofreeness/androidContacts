@@ -2,11 +2,12 @@ package com.example.contactsmanager;
 
 import java.util.ArrayList;
 
+import com.example.contactsmanager.ContactList.sortType;
+
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ActivityMain extends Activity {
-	Context context = this;
-	StableArrayAdapter adapter;
+	private Context context = this;
+	private StableArrayAdapter adapter;
+	
 	
 
 
@@ -26,11 +28,13 @@ public class ActivityMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ContactList cList = ContactList.getInstance();
+        cList.refreshList();
         
         
         final ListView listview = (ListView) findViewById(R.id.listview);
         
-        ArrayList<Contact> values = getStringContacts();
+        ArrayList<Contact> values = getListContacts();
 
 //        final List<Contact> contactList = new ArrayList<Contact>();
 //        for (int i = 0; i < values.size(); i=i+1) {
@@ -75,7 +79,22 @@ public class ActivityMain extends Activity {
             	               public void onClick(DialogInterface dialog, int which) {
             	               //not sure if this will do it, need to get it to call
             	            	  //get contacts from contact list again
-            	            	   adapter.notifyDataSetChanged();
+            	            	   ContactList cList = ContactList.getInstance();
+            	            	   
+            	            	   if (which == 0){
+            	            		   cList.setSortType(sortType.firstName);
+            	            		   updatedData();
+            	            	   }else if (which == 1){
+            	            		   cList.setSortType(sortType.lastName);
+               	            		   updatedData();
+            	            		   
+            	            	   }else{
+            	            		   cList.setSortType(sortType.firstName);
+            	            		   updatedData();
+            	            	   }
+            	            	   
+            	            	   
+            	            	   
             	            	   
             	           }
             	    });
@@ -111,12 +130,27 @@ public class ActivityMain extends Activity {
     
 
     
-    private ArrayList<Contact> getStringContacts(){
+    private ArrayList<Contact> getListContacts(){
     	ContactList cList = ContactList.getInstance();
     	ArrayList<Contact> values = cList.getList();
    
 		return values;
     	
+    }
+    
+    public void updatedData() {
+    	ArrayList<Contact> itemsArrayList = getListContacts();
+        adapter.clear(); 
+        if (itemsArrayList != null){
+
+            for (Contact c : itemsArrayList) {
+
+                adapter.add(c);
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+
     }
 }
 

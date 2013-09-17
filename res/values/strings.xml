@@ -30,6 +30,11 @@
         <item >First Name</item>
         <item >Last Name</item>
     </string-array>
+    <string name="pick_image">Get image from:</string>
+    <string-array name="pick_image_array">
+        <item >Gallery</item>
+        <item >Camera</item>
+    </string-array>
     
     
 </resources>

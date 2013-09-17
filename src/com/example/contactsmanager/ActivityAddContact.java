@@ -1,21 +1,61 @@
 package com.example.contactsmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 
 public class ActivityAddContact extends Activity{
 	Context context;
+	Context contextActivity=this;
+	private static final int PICK_IMAGE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
         context = getApplicationContext();
+        
+        ImageButton image = (ImageButton)findViewById(R.id.contact_image);
+        image.setOnClickListener(new View.OnClickListener(){
+        	public void onClick(View v){
+        		
+        		//ask what you want to do, take picture or open saved image
+        		AlertDialog.Builder builder = new AlertDialog.Builder(contextActivity);
+        	    builder.setTitle(R.string.pick_image);
+        	    builder.setItems(R.array.pick_image_array, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int which) {
+        	               //open gallery or camera
+        	            	   if (which == 0){ //Gallery
+        	            		   Intent intent = new Intent();
+        	            		   intent.setType("image/*");
+        	            		   intent.setAction(Intent.ACTION_GET_CONTENT);
+        	            		   startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        	            		   //TODO: Do something with the selected image
+        	            	   }else{ //camera
+        	            		   
+        	            		   Intent cameraIntent = new Intent(
+        	            		            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        	            		    startActivityForResult(cameraIntent, 1);
+        	            		    //TODO: Store image in app (will also go to gallery)
+        	            	   }
+        	            		   
+        	            	   
+        	            	   
+        	           }
+        	    });
+        	    AlertDialog dialog = builder.create();
+        	    dialog.show();
+        		
+        	}
+        });
 
     }
     
