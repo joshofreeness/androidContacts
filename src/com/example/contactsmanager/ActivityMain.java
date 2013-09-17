@@ -2,8 +2,13 @@ package com.example.contactsmanager;
 
 import java.util.ArrayList;
 
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,26 +17,28 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ActivityMain extends Activity {
+	Context context = this;
+	StableArrayAdapter adapter;
+	
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        
         final ListView listview = (ListView) findViewById(R.id.listview);
         
-        String[] values = getStringContacts();
+        ArrayList<Contact> values = getStringContacts();
 
-        final ArrayList<String> listName = new ArrayList<String>();
-        for (int i = 0; i < values.length; i=i+2) {
-          listName.add(values[i]);
-        }
-        final ArrayList<String> listNum = new ArrayList<String>();
-        for (int i = 1; i < values.length; i=i+2) {
-          listNum.add(values[i]);
-        }
+//        final List<Contact> contactList = new ArrayList<Contact>();
+//        for (int i = 0; i < values.size(); i=i+1) {
+//          contactList.add(values.get(i));
+//        }
+
         
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, listName,listNum);
+         adapter = new StableArrayAdapter(this, values);
             listview.setAdapter(adapter);
 
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,7 +47,7 @@ public class ActivityMain extends Activity {
               public void onItemClick(AdapterView<?> parent, final View view,
                   int position, long id) {
             	  //returns name of contact pressed
-                final String item = (String) parent.getItemAtPosition(position);
+                final Contact item = (Contact) parent.getItemAtPosition(position);
                openView(item);
                   
               }
@@ -59,7 +66,24 @@ public class ActivityMain extends Activity {
                 openAdd();
                 return true;
             case R.id.action_sort:
-                //TODO: add what to do when sort
+                //create dialogue
+            	
+            	
+            	    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            	    builder.setTitle(R.string.sort_type);
+            	    builder.setItems(R.array.sort_by_array, new DialogInterface.OnClickListener() {
+            	               public void onClick(DialogInterface dialog, int which) {
+            	               //not sure if this will do it, need to get it to call
+            	            	  //get contacts from contact list again
+            	            	   adapter.notifyDataSetChanged();
+            	            	   
+            	           }
+            	    });
+            	    AlertDialog dialog = builder.create();
+            	    dialog.show();
+            	
+            	
+            	
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,9 +95,9 @@ public class ActivityMain extends Activity {
     	startActivityForResult(startNewActivityOpen, 0);
     }
     
-    private void openView(String item){
+    private void openView(Contact item){
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ContactView.class);
-    	startNewActivityOpen.putExtra("name",item);
+    	startNewActivityOpen.putExtra("name",item.getFullName());
     	startActivityForResult(startNewActivityOpen, 0);
     }
 
@@ -84,9 +108,12 @@ public class ActivityMain extends Activity {
         return true;
     }
     
-    private String[] getStringContacts(){
+    
+
+    
+    private ArrayList<Contact> getStringContacts(){
     	ContactList cList = ContactList.getInstance();
-    	String[] values = cList.getList();
+    	ArrayList<Contact> values = cList.getList();
    
 		return values;
     	

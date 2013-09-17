@@ -1,6 +1,8 @@
 package com.example.contactsmanager;
 
-public class Contact {
+
+
+public class Contact  {
 	private String _firstName;
 	private String _lastName;
 	private String _homeNumber;
@@ -22,6 +24,22 @@ public class Contact {
 		_homeAddress = hAddress;
 		_DOB = DOB;
 		_image = image;
+
+	}
+	public String getFirstName(){
+		return _firstName;
+	}
+	public String getLastName(){
+		return _lastName;
+	}
+	public String getmNumber(){
+		return _mobileNumber;
+	}
+	public String getImage(){
+		return _image;
+	}
+	public String getFullName(){
+		return (_firstName + " " + _lastName);
 	}
 	
 	public String[] getDetails() {
@@ -39,4 +57,8 @@ public class Contact {
 	
 		return values;
 	}
+
+
+
+
 }

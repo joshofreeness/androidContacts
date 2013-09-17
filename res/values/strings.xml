@@ -24,6 +24,12 @@
     <string name="ok">OK</string>
     <string name="already_exists_title">The Contact Already Exists</string>
     <string name="contact_view_title">View Contact</string>
+    <string name="image_description_text">Contact\'s Image</string>
+    <string name="sort_type">Sort Contacts by</string>
+    <string-array name="sort_by_array">
+        <item >First Name</item>
+        <item >Last Name</item>
+    </string-array>
     
     
 </resources>

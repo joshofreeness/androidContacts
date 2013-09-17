@@ -3,6 +3,7 @@ package com.example.contactsmanager;
 
 import java.util.ArrayList;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 
-public class StableArrayAdapter extends ArrayAdapter<String> {
+
+public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	  private final Context context;
-	  private final ArrayList<String> names;
-	  private final ArrayList<String> nums;
+	  private final ArrayList<Contact> contacts;
 
-	  public StableArrayAdapter(Context context, ArrayList<String> name, ArrayList<String> num) {
-	    super(context, R.layout.row_layout, name);
+
+
+	  public StableArrayAdapter(Context context, ArrayList<Contact> list ) {
+
+	    super(context, R.layout.row_layout, list);
 	    this.context = context;
-	    this.names = name;
-	    this.nums=num;
+	    this.contacts = list;
+
 	  }
 
 	  @Override
@@ -32,10 +35,10 @@ public class StableArrayAdapter extends ArrayAdapter<String> {
 	    TextView textView = (TextView) rowView.findViewById(R.id.label);
 	    ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 	    TextView numbers = (TextView) rowView.findViewById(R.id.secondLine);
-	    textView.setText(names.get(position));
-	    numbers.setText(nums.get(position));
-	    // Change the icon for Windows and iPhone
-	    String s = names.get(position);
+	    textView.setText((contacts.get(position)).getFullName());
+	    numbers.setText((contacts.get(position)).getmNumber());
+	    //TODO: set image when that is setup
+	    String s = contacts.get(position).getImage();
 	    imageView.setImageResource(R.drawable.ic_launcher);
 
 	    return rowView;
