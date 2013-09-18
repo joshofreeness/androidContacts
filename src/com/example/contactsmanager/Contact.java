@@ -58,7 +58,9 @@ public class Contact  {
 		return values;
 	}
 
-
+	   public String toString(){
+		   return _firstName;
+	   }
 
 
 }

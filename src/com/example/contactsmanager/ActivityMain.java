@@ -92,10 +92,7 @@ public class ActivityMain extends Activity {
             	            		   cList.setSortType(sortType.firstName);
             	            		   updatedData();
             	            	   }
-            	            	   
-            	            	   
-            	            	   
-            	            	   
+ 
             	           }
             	    });
             	    AlertDialog dialog = builder.create();
@@ -133,21 +130,21 @@ public class ActivityMain extends Activity {
     private ArrayList<Contact> getListContacts(){
     	ContactList cList = ContactList.getInstance();
     	ArrayList<Contact> values = cList.getList();
-   
 		return values;
     	
     }
     
     public void updatedData() {
-    	ArrayList<Contact> itemsArrayList = getListContacts();
-        adapter.clear(); 
-        if (itemsArrayList != null){
 
-            for (Contact c : itemsArrayList) {
+        adapter.clear(); //WHAAAAATTT??????
+        //Why does a clear call on the adapter clear my arraylist in 
+        //contactlist class???????
+        ContactList cList = ContactList.getInstance();
+        cList.refreshList();
+        ArrayList<Contact> itemsArrayList = getListContacts();
 
-                adapter.add(c);
-            }
-        }
+         adapter.addAll(itemsArrayList);
+
 
         adapter.notifyDataSetChanged();
 

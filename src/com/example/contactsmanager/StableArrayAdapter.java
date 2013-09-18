@@ -15,12 +15,11 @@ import android.widget.TextView;
 
 public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	  private final Context context;
-	  private final ArrayList<Contact> contacts;
+	  private ArrayList<Contact> contacts;
 
 
 
 	  public StableArrayAdapter(Context context, ArrayList<Contact> list ) {
-
 	    super(context, R.layout.row_layout, list);
 	    this.context = context;
 	    this.contacts = list;
@@ -39,6 +38,7 @@ public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	    numbers.setText((contacts.get(position)).getmNumber());
 	    //TODO: set image when that is setup
 	    String s = contacts.get(position).getImage();
+
 	    imageView.setImageResource(R.drawable.ic_launcher);
 
 	    return rowView;

@@ -13,7 +13,7 @@ import android.content.Context;
 public class ContactList {
 	
 	   private static ContactList INSTANCE;
-	   ArrayList<Contact> list = new ArrayList<Contact>();
+	   private ArrayList<Contact> list = new ArrayList<Contact>();
 	   public enum sortType{
 			firstName, lastName;
 		}
@@ -101,7 +101,7 @@ public class ContactList {
 		        }
 
 		    });
-		   
+
 		   return contacts;
 	   }
 	   private ArrayList<Contact> sortListLastName(ArrayList<Contact> contacts) {
@@ -112,7 +112,9 @@ public class ContactList {
 		        }
 
 		    });
-		   
+
 		   return contacts;
 	   }
+	   
+
 }
