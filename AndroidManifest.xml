@@ -32,6 +32,8 @@
         
         <activity android:name=".ContactView"
             android:label="@string/contact_view_title"></activity>
+        <activity android:name=".ContactEdit"
+            android:label="@string/contact_edit_title"></activity>
     </application>
 
 </manifest>

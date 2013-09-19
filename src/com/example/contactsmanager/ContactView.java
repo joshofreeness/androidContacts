@@ -13,13 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ContactView extends Activity{
+	private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
         setContentView(R.layout.contact_view);
-        String name = myIntent.getStringExtra("name");
+        name = myIntent.getStringExtra("name");
         ContactList cList = ContactList.getInstance();
     	ArrayList<Contact> values = cList.getList();
     	//TODO: CAN LEAD TO NULL POINTER
@@ -87,6 +88,9 @@ public class ContactView extends Activity{
                 //TODO: add what to do when edit
             	//must send details about current contact
             	//to partially fill new contact or something similar
+            	Intent startNewActivityOpen = new Intent(ContactView.this, ContactEdit.class);
+            	startNewActivityOpen.putExtra("name", name);
+            	startActivityForResult(startNewActivityOpen, 0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -35,6 +35,7 @@
         <item >Gallery</item>
         <item >Camera</item>
     </string-array>
+    <string name="contact_edit_title">Edit Contact</string>
     
     
 </resources>
