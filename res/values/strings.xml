@@ -36,6 +36,8 @@
         <item >Camera</item>
     </string-array>
     <string name="contact_edit_title">Edit Contact</string>
+    <string name="mobile_call_description_text">Call Mobile</string>
+    <string name="mobile_text_description_text">Text Number</string>
     
     
 </resources>
