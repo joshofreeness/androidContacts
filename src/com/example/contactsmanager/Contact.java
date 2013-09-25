@@ -3,6 +3,8 @@ package com.example.contactsmanager;
 
 
 public class Contact  {
+	
+	//setup all fields
 	private String _firstName;
 	private String _lastName;
 	private String _homeNumber;
@@ -15,6 +17,8 @@ public class Contact  {
 	
 	public Contact(String fName, String lName, String hNumber, String wNumber,
 			String mNumber, String eAddress, String hAddress, String DOB, String image){
+		//assign all to fields note: no nulls can be passed, 
+		//TODO:handle nulls in the program when users can input data
 		_firstName = fName;
 		_lastName = lName;
 		_homeNumber = hNumber;

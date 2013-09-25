@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ContactView extends Activity{
+	//contact currently viewing
 	private String name;
 
     @Override
@@ -23,10 +24,11 @@ public class ContactView extends Activity{
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
         setContentView(R.layout.contact_view);
+        //get name of contact to be viewed
         name = myIntent.getStringExtra("name");
         
     	String[] details = getDetails();
-    	
+    	//setup all text views
         TextView firstName = (TextView)findViewById(R.id.contact_first_name);
         firstName.setText(details[0]);
         TextView lastName = (TextView)findViewById(R.id.contact_last_name);
@@ -41,12 +43,15 @@ public class ContactView extends Activity{
         email.setText(details[5]);
         TextView home = (TextView)findViewById(R.id.contact_home_address);
         home.setText(details[6]);
+        TextView dOB = (TextView)findViewById(R.id.contact_date_of_birth);
+        dOB.setText(details[7]);
         ImageView image = (ImageView)findViewById(R.id.contact_image);
-        //TODO:Setup DOB details[7]
         //TODO: change when setup images details[8]
         image.setImageResource(R.drawable.ic_launcher);
         
+        //the following allows the user to make calls, texts and emails form within the app
         
+        //NOTE:----------THIS MAY NOT WORK ON AN EMULATOR-------------
         ImageButton callMob = (ImageButton)findViewById(R.id.call_mobile_image);
         callMob.setOnClickListener(new View.OnClickListener(){
         	public void onClick(View v){
@@ -122,9 +127,7 @@ public class ContactView extends Activity{
             	
                 return true;
             case R.id.action_edit_contact:
-                //TODO: add what to do when edit
-            	//must send details about current contact
-            	//to partially fill new contact or something similar
+                //starts edit contact passing the contact to be edited
             	Intent startNewActivityOpen = new Intent(ContactView.this, ContactEdit.class);
             	startNewActivityOpen.putExtra("name", name);
             	startActivityForResult(startNewActivityOpen, 0);
@@ -135,6 +138,7 @@ public class ContactView extends Activity{
     }
     
     private void callNumber(int number){
+    	//call the phone number depending on which button was pressed
     	String[]details = getDetails();
      	String phNo;
      	

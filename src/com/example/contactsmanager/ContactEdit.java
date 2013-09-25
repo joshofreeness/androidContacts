@@ -3,21 +3,29 @@ package com.example.contactsmanager;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 
 public class ContactEdit extends Activity{
+	Context contextActivity=this;
+	//User can only select one image
+	private static final int PICK_IMAGE = 1;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
         setContentView(R.layout.contact_edit);
+        //extract what contact we are editing
         String name = myIntent.getStringExtra("name");
         ContactList cList = ContactList.getInstance();
     	ArrayList<Contact> values = cList.getList();
@@ -45,12 +53,51 @@ public class ContactEdit extends Activity{
         email.setText(details[5]);
         EditText home = (EditText)findViewById(R.id.contact_home_address_edit);
         home.setText(details[6]);
+        EditText dOB = (EditText)findViewById(R.id.contact_date_of_birth_edit);
+        dOB.setText(details[7]);
+       
+        
+        
         ImageButton image = (ImageButton)findViewById(R.id.contact_image_edit);
-        //TODO:Setup DOB details[7]
         //TODO: change when setup images details[8]
         image.setImageResource(R.drawable.ic_launcher);
-    }
+        image.setOnClickListener(new View.OnClickListener(){
+        	public void onClick(View v){
+        		
+        		//ask what you want to do, take picture or open saved image
+        		AlertDialog.Builder builder = new AlertDialog.Builder(contextActivity);
+        	    builder.setTitle(R.string.pick_image);
+        	    builder.setItems(R.array.pick_image_array, new DialogInterface.OnClickListener() {
+        	               public void onClick(DialogInterface dialog, int which) {
+        	               //open gallery or camera
+        	            	   if (which == 0){ //Gallery
+        	            		   Intent intent = new Intent();
+        	            		   intent.setType("image/*");
+        	            		   intent.setAction(Intent.ACTION_GET_CONTENT);
+        	            		   startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        	            		   //TODO: Do something with the selected image
+        	            	   }else{ //camera
+        	            		   
+        	            		   Intent cameraIntent = new Intent(
+        	            		            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        	            		    startActivityForResult(cameraIntent, 1);
+        	            		    //TODO: Store image in app (will also go to gallery)
+        	            	   }
+        	            		   
+        	            	   
+        	            	   
+        	           }
+
+
+        	    });
+        	    //display setup dialog
+        	    AlertDialog dialog = builder.create();
+        	    dialog.show();
+        	}});
     
+        	}
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -65,7 +112,7 @@ public class ContactEdit extends Activity{
         		finish();
         		return true;
         	case R.id.action_save_contact_edit:
-        		//save contact
+        		//TODO: Save the contact
         		finish();
         		return true;
         	default:

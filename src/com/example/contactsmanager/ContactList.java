@@ -11,9 +11,10 @@ import android.content.Context;
 
 
 public class ContactList {
-	
+		//SINGLETON CLASS
 	   private static ContactList INSTANCE;
 	   private ArrayList<Contact> list = new ArrayList<Contact>();
+	   //set for appointing sort type
 	   public enum sortType{
 			firstName, lastName;
 		}
@@ -30,11 +31,13 @@ public class ContactList {
 			  return INSTANCE;
 	 }
 	   public void setSortType(sortType sortBy){
+		   //what way will it be sorted when the getList method is called
 		   _sortBy = sortBy;
 	   }
 
 	   
 	   public void refreshList(){
+		   //TODO:Query a database
 		   //will eventually query database
 		   list.clear();
 		   list.add(new Contact("Bob","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
@@ -53,23 +56,31 @@ public class ContactList {
 	   
 	   public boolean saveContact(Contact c, Context context){
 		   
+		   //TODO:update depending on database chosen for final app
 		   String[] values = c.getDetails();
 		   FileOutputStream outputStream;
+		   
+		   //filename
 		   String fileName = values[0] + "_" + values[1] 
 					+ ".contact";
 			File file = new File(context.getFilesDir(),fileName);
 			
 			if (file.exists()){
+				//tells method trying to save that the contact already
+				//exists and wont be overwritten
 				return false;
 			}else{
 				
 
 				try {
+					//write to file
 				  outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
 				  outputStream.write(values.toString().getBytes());
 				  outputStream.close();
 				} catch (Exception e) {
 				  e.printStackTrace();
+				  //maybe add more info as to why it wasn't saved
+				  return false;
 				}
 				
 				return true;
@@ -80,6 +91,7 @@ public class ContactList {
 	   }
 	   
 	   public ArrayList<Contact> getList(){
+		   //gets list according to the enum that is currently set
 		   if (_sortBy == sortType.firstName){
 			   return sortListFirstName(list);
 		   }else if (_sortBy == sortType.lastName){
@@ -94,7 +106,7 @@ public class ContactList {
 	   
 	   
 	   private ArrayList<Contact> sortListFirstName(ArrayList<Contact> contacts) {
-		   
+		   //sort by first name
 		   Collections.sort(contacts, new Comparator<Contact>() {
 		        @Override public int compare(Contact c1, Contact c2) {
 		            return (c1.getFirstName()).compareToIgnoreCase(c2.getFirstName());
@@ -105,7 +117,7 @@ public class ContactList {
 		   return contacts;
 	   }
 	   private ArrayList<Contact> sortListLastName(ArrayList<Contact> contacts) {
-		   
+		   //sort by last name
 		   Collections.sort(contacts, new Comparator<Contact>() {
 		        @Override public int compare(Contact c1, Contact c2) {
 		            return (c1.getLastName()).compareToIgnoreCase(c2.getLastName());

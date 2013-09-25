@@ -16,13 +16,18 @@ import android.widget.ImageButton;
 public class ActivityAddContact extends Activity{
 	Context context;
 	Context contextActivity=this;
+	//only allow one image to be selected;
 	private static final int PICK_IMAGE = 1;
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+        //get the context after view has been setup otherwise null pointer error
         context = getApplicationContext();
         
+        //make image clickable
         ImageButton image = (ImageButton)findViewById(R.id.contact_image);
         image.setOnClickListener(new View.OnClickListener(){
         	public void onClick(View v){
@@ -51,6 +56,7 @@ public class ActivityAddContact extends Activity{
         	            	   
         	           }
         	    });
+        	    //show the dialog just created
         	    AlertDialog dialog = builder.create();
         	    dialog.show();
         		
@@ -65,10 +71,11 @@ public class ActivityAddContact extends Activity{
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_cancel:
+            	//leave activity
                 finish();
                 return true;
             case R.id.action_save_contact:
-            	
+            	//set up all instances of edittexts and images
             	EditText textLastName = (EditText)findViewById(R.id.contact_last_name);
             	String lastName = textLastName.getText().toString();
             	
@@ -90,13 +97,19 @@ public class ActivityAddContact extends Activity{
             	EditText textHomeAddress = (EditText)findViewById(R.id.contact_home_address);
             	String homeAddress = textHomeAddress.getText().toString();
             	
+            	EditText textDateOfBirth = (EditText)findViewById(R.id.contact_date_of_birth);
+            	String dOB = textDateOfBirth.getText().toString();
+            	
             	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
-            			homeAddress, "a", "b");
+            			homeAddress, dOB, "b");
             	
             	ContactList list = ContactList.getInstance();
+            	
             	if (list.saveContact(contact, context)){
+            		//if the contact doesn't exists it gets saved in above method
             		finish();            		
             	}else{
+            		//tell the app that it already exists
             		Intent startNewActivityOpen = new Intent(ActivityAddContact.this, AlreadyExists.class);
                 	startActivityForResult(startNewActivityOpen, 0);
             	}

@@ -18,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ActivityMain extends Activity {
+	//Get context variables for passing to methods/objects
 	private Context context = this;
+	//have a refrence to a single array adapter
 	private StableArrayAdapter adapter;
 	
 	
@@ -28,23 +30,20 @@ public class ActivityMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Get contacts List and refresh it
         ContactList cList = ContactList.getInstance();
         cList.refreshList();
         
-        
+        //Get the list view
         final ListView listview = (ListView) findViewById(R.id.listview);
-        
+        //get list of contacts
         ArrayList<Contact> values = getListContacts();
 
-//        final List<Contact> contactList = new ArrayList<Contact>();
-//        for (int i = 0; i < values.size(); i=i+1) {
-//          contactList.add(values.get(i));
-//        }
 
-        
+        //set up the adapter passing it values and set it to work on listview
          adapter = new StableArrayAdapter(this, values);
             listview.setAdapter(adapter);
-
+            //set on click listener
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
               @Override
@@ -52,12 +51,10 @@ public class ActivityMain extends Activity {
                   int position, long id) {
             	  //returns name of contact pressed
                 final Contact item = (Contact) parent.getItemAtPosition(position);
-               openView(item);
-                  
+                //opens contact view and passes what was pressed (item)
+               openView(item);            
               }
-
-            });
-            
+            });          
           }
         
   
@@ -67,20 +64,18 @@ public class ActivityMain extends Activity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_add_contact:
+            	//add new contact
                 openAdd();
                 return true;
             case R.id.action_sort:
                 //create dialogue
-            	
-            	
             	    AlertDialog.Builder builder = new AlertDialog.Builder(context);
             	    builder.setTitle(R.string.sort_type);
             	    builder.setItems(R.array.sort_by_array, new DialogInterface.OnClickListener() {
             	               public void onClick(DialogInterface dialog, int which) {
-            	               //not sure if this will do it, need to get it to call
             	            	  //get contacts from contact list again
             	            	   ContactList cList = ContactList.getInstance();
-            	            	   
+            	            	   //update the data according to what was selected
             	            	   if (which == 0){
             	            		   cList.setSortType(sortType.firstName);
             	            		   updatedData();
@@ -92,26 +87,27 @@ public class ActivityMain extends Activity {
             	            		   cList.setSortType(sortType.firstName);
             	            		   updatedData();
             	            	   }
- 
             	           }
             	    });
+            	    //show the dialog that was just built
             	    AlertDialog dialog = builder.create();
             	    dialog.show();
-            	
-            	
-            	
+            	//default options for on menu option clicked
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     
+    
     private void openAdd(){
+    	//new intent to add contact
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ActivityAddContact.class);
     	startActivityForResult(startNewActivityOpen, 0);
     }
     
     private void openView(Contact item){
+    	//new intent to view object selected
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ContactView.class);
     	startNewActivityOpen.putExtra("name",item.getFullName());
     	startActivityForResult(startNewActivityOpen, 0);
@@ -119,7 +115,7 @@ public class ActivityMain extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar .
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
@@ -128,6 +124,7 @@ public class ActivityMain extends Activity {
 
     
     private ArrayList<Contact> getListContacts(){
+    	//get the contact list from the contactList
     	ContactList cList = ContactList.getInstance();
     	ArrayList<Contact> values = cList.getList();
 		return values;
@@ -141,6 +138,7 @@ public class ActivityMain extends Activity {
         //contactlist class???????
         ContactList cList = ContactList.getInstance();
         cList.refreshList();
+        //have to getListContacts because adapter.clear() deleted it
         ArrayList<Contact> itemsArrayList = getListContacts();
 
          adapter.addAll(itemsArrayList);
