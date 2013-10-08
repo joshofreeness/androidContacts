@@ -13,6 +13,7 @@ import android.content.Context;
 public class ContactList {
 		//SINGLETON CLASS
 	   private static ContactList INSTANCE;
+	   
 	   private ArrayList<Contact> list = new ArrayList<Contact>();
 	   //set for appointing sort type
 	   public enum sortType{
@@ -36,55 +37,32 @@ public class ContactList {
 	   }
 
 	   
-	   public void refreshList(){
+	   public void refreshList(Context context){
 		   //TODO:Query a database
 		   //will eventually query database
+		  
+		   SQLite db = new SQLite(context, null,null,1);
 		   list.clear();
-		   list.add(new Contact("Bob","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("sally","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("Bob","richard", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("anne","McCaffery", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("The","Doctor", "1","1","1","the@doctor.time","tardis","22/3/-5","image.jpg"));
-		   list.add(new Contact("sally","Blogs", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("Richard","Fran", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("Mum's","Uncle", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("The","Master", "2","2","2","the@master.time","somewhere","22/3/-20","image.jpg"));
-		   list.add(new Contact("That","Blogs", "264","558","2463","you@place.com","45 road","22/3/195","image.jpg"));
-		   list.add(new Contact("Albert","Longname", "245","564858","2483","you@place.com","13 road","22/3/195","image.jpg"));
-		   list.add(new Contact("Pat","Postman", "21235","5567","78385","balck@cat.com","1 road","22/5/195","image.jpg"));
+		   list.addAll(db.getAllContacts());
+		   
+//		   list.add(new Contact("sally","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("Bob","richard", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("anne","McCaffery", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("The","Doctor", "1","1","1","the@doctor.time","tardis","22/3/-5","image.jpg"));
+//		   list.add(new Contact("sally","Blogs", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("Richard","Fran", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("Mum's","Uncle", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("The","Master", "2","2","2","the@master.time","somewhere","22/3/-20","image.jpg"));
+//		   list.add(new Contact("That","Blogs", "264","558","2463","you@place.com","45 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("Albert","Longname", "245","564858","2483","you@place.com","13 road","22/3/195","image.jpg"));
+//		   list.add(new Contact("Pat","Postman", "21235","5567","78385","balck@cat.com","1 road","22/5/195","image.jpg"));
 	   }
 	   
 	   public boolean saveContact(Contact c, Context context){
 		   
-		   //TODO:update depending on database chosen for final app
-		   String[] values = c.getDetails();
-		   FileOutputStream outputStream;
-		   
-		   //filename
-		   String fileName = values[0] + "_" + values[1] 
-					+ ".contact";
-			File file = new File(context.getFilesDir(),fileName);
-			
-			if (file.exists()){
-				//tells method trying to save that the contact already
-				//exists and wont be overwritten
-				return false;
-			}else{
-				
-
-				try {
-					//write to file
-				  outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-				  outputStream.write(values.toString().getBytes());
-				  outputStream.close();
-				} catch (Exception e) {
-				  e.printStackTrace();
-				  //maybe add more info as to why it wasn't saved
-				  return false;
-				}
-				
-				return true;
-			}
+		   SQLite db = new SQLite(context, null,null,1);
+		   db.addContact(c);
+		   return true;
 			
 		   
 

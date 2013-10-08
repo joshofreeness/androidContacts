@@ -107,6 +107,7 @@ public class ActivityAddContact extends Activity{
             	
             	if (list.saveContact(contact, context)){
             		//if the contact doesn't exists it gets saved in above method
+            		
             		finish();            		
             	}else{
             		//tell the app that it already exists
@@ -126,5 +127,7 @@ public class ActivityAddContact extends Activity{
         getMenuInflater().inflate(R.menu.activity_add_contact, menu);
         return true;
     }
+    
+    
 
 }

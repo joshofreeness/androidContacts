@@ -32,7 +32,7 @@ public class ActivityMain extends Activity {
         setContentView(R.layout.activity_main);
         //Get contacts List and refresh it
         ContactList cList = ContactList.getInstance();
-        cList.refreshList();
+        cList.refreshList(context);
         
         //Get the list view
         final ListView listview = (ListView) findViewById(R.id.listview);
@@ -137,7 +137,7 @@ public class ActivityMain extends Activity {
         //Why does a clear call on the adapter clear my arraylist in 
         //contactlist class???????
         ContactList cList = ContactList.getInstance();
-        cList.refreshList();
+        cList.refreshList(context);
         //have to getListContacts because adapter.clear() deleted it
         ArrayList<Contact> itemsArrayList = getListContacts();
 
@@ -146,6 +146,11 @@ public class ActivityMain extends Activity {
 
         adapter.notifyDataSetChanged();
 
+    }
+    
+    protected void onResume(){
+    	super.onResume();
+    	updatedData();
     }
 }
 
