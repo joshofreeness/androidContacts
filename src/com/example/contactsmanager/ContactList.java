@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+
 import android.content.Context;
 
 
@@ -63,11 +64,19 @@ public class ContactList {
 		   SQLite db = new SQLite(context, null,null,1);
 		   db.addContact(c);
 		   return true;
-			
-		   
+  
 
 	   }
 	   
+	   public boolean deleteContact(Contact c, Context context){
+		   
+		   SQLite db = new SQLite(context, null,null,1);
+		   db.deleteContact(c);
+		   return true;
+  
+
+	   }
+
 	   public ArrayList<Contact> getList(){
 		   //gets list according to the enum that is currently set
 		   if (_sortBy == sortType.firstName){

@@ -117,7 +117,7 @@ public class SQLite extends SQLiteOpenHelper{
 	    }
 	 
 	    // return contact list
-		contactList.add(new Contact("Bob","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
+		//contactList.add(new Contact("Bob","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
 
 	    return contactList;
 	}
@@ -126,17 +126,41 @@ public class SQLite extends SQLiteOpenHelper{
 	// Getting contacts Count
 	public int getContactsCount() {
 		return 0;}
+	
+	
 	// Updating single contact
 	public int updateContact(Contact contact) {
-		return 0;}
+		SQLiteDatabase db = this.getWritableDatabase();
+		String[] cValues = contact.getDetails();
+	    ContentValues values = new ContentValues();
+	    values.put(CONTACT_FIRST_NAME, cValues[0]); 
+	    values.put(CONTACT_LAST_NAME, cValues[1]); 
+	    values.put(CONTACT_HOME_NO, cValues[2]); 
+	    values.put(CONTACT_WORK_NO, cValues[3]); 
+	    values.put(CONTACT_MOBILE_NO, cValues[4]); 
+	    values.put(CONTACT_EMAIL, cValues[5]); 
+	    values.put(CONTACT_HOME_NO, cValues[6]); 
+	    values.put(CONTACT_DOB, cValues[7]); 
+	    values.put(CONTACT_PHOTO, cValues[8]); 
+	    // updating row
+	    return db.update(TABLE_NAME, values,
+	    		CONTACT_FIRST_NAME + " = ? AND "
+	    	    + CONTACT_LAST_NAME + " = ?",
+	    	            new String[] { contact.getFirstName(), contact.getLastName() });
+		
+		}
 	 
 	// Deleting single contact
 	public void deleteContact(Contact contact) {
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete(TABLE_NAME, KEY_ID + " = ?",
-	            new String[] { String.valueOf(contact.getID()) });
+	    db.delete(TABLE_NAME, 
+	    		CONTACT_FIRST_NAME + " = ? AND "
+	    		+ CONTACT_LAST_NAME + " = ?",
+	            new String[] { contact.getFirstName(), contact.getLastName() });
 	    db.close();
 	}
+	
+
 	
 	private Contact cursorToContact (Cursor cursor){
 		

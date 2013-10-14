@@ -133,15 +133,9 @@ public class ActivityMain extends Activity {
     
     public void updatedData() {
 
-        adapter.clear(); //WHAAAAATTT??????
-        //Why does a clear call on the adapter clear my arraylist in 
-        //contactlist class???????
+        adapter.clear(); 
         ContactList cList = ContactList.getInstance();
         cList.refreshList(context);
-        //have to getListContacts because adapter.clear() deleted it
-        ArrayList<Contact> itemsArrayList = getListContacts();
-
-         adapter.addAll(itemsArrayList);
 
 
         adapter.notifyDataSetChanged();

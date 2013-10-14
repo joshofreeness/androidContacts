@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 public class ContactView extends Activity{
 	//contact currently viewing
 	private String name;
+	Context cntxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class ContactView extends Activity{
         setContentView(R.layout.contact_view);
         //get name of contact to be viewed
         name = myIntent.getStringExtra("name");
+        cntxt = getApplicationContext();
         
     	String[] details = getDetails();
     	//setup all text views
@@ -114,7 +117,8 @@ public class ContactView extends Activity{
                 .setMessage("Are you sure you want to delete this contact?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) { 
-                    	//TODO: delete contact
+                    	ContactList c = ContactList.getInstance();
+                    	c.deleteContact(getContact(), cntxt);
                     	finish();
                     }
                  })
@@ -171,5 +175,19 @@ public class ContactView extends Activity{
     	
     }
 	
+    public Contact getContact(){
+   	 ContactList cList = ContactList.getInstance();
+     	ArrayList<Contact> values = cList.getList();
+     	//TODO: CAN LEAD TO NULL POINTER
+     	Contact contact = null;
+     	for (int i=0; i<values.size(); i++){
+     		if (values.get(i).getFullName().equals(name)){
+     			contact = values.get(i);
+     		}
+     	}
+     	//Set fields
+     	return contact;
+   	
+   }
 	
 }
