@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +20,7 @@ public class ActivityAddContact extends Activity{
 	Context context;
 	Context contextActivity=this;
 	//only allow one image to be selected;
+	private static final int TAKE_IMAGE = 2;
 	private static final int PICK_IMAGE = 1;
 	
 	
@@ -43,12 +47,12 @@ public class ActivityAddContact extends Activity{
         	            		   intent.setType("image/*");
         	            		   intent.setAction(Intent.ACTION_GET_CONTENT);
         	            		   startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-        	            		   //TODO: Do something with the selected image
+        	            		   //goes to onActivityResult()
         	            	   }else{ //camera
         	            		   
         	            		   Intent cameraIntent = new Intent(
         	            		            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        	            		    startActivityForResult(cameraIntent, 1);
+        	            		    startActivityForResult(cameraIntent, TAKE_IMAGE);
         	            		    //TODO: Store image in app (will also go to gallery)
         	            	   }
         	            		   
@@ -106,8 +110,6 @@ public class ActivityAddContact extends Activity{
             	ContactList list = ContactList.getInstance();
             	
             	if (list.saveContact(contact, context)){
-            		//if the contact doesn't exists it gets saved in above method
-            		
             		finish();            		
             	}else{
             		//tell the app that it already exists
@@ -126,6 +128,34 @@ public class ActivityAddContact extends Activity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_add_contact, menu);
         return true;
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        
+        if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK) {  
+            Bitmap photo = (Bitmap) intent.getExtras().get("data"); 
+            ImageButton button = (ImageButton)findViewById(R.id.contact_image);
+        	button.setImageBitmap(photo);
+        }
+        
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+        	//TODO: not working (Cannot decode because no such file)
+        	Uri selectedImageUri = intent.getData();
+            String filestring = selectedImageUri.getPath();
+            Bitmap photo = BitmapFactory.decodeFile(filestring);
+            ImageButton button = (ImageButton)findViewById(R.id.contact_image);
+        	button.setImageBitmap(photo);
+        }
+        
+//        if(data != null)
+//        {           
+//            Uri selectedImageUri = data.getData();
+//            filestring = selectedImageUri.getPath();
+//
+//          Bitmap thumbnail = BitmapFactory.decodeFile(filestring, options2);
+
     }
     
     

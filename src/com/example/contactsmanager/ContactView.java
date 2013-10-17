@@ -134,7 +134,7 @@ public class ContactView extends Activity{
                 //starts edit contact passing the contact to be edited
             	Intent startNewActivityOpen = new Intent(ContactView.this, ContactEdit.class);
             	startNewActivityOpen.putExtra("name", name);
-            	startActivityForResult(startNewActivityOpen, 0);
+            	startActivityForResult(startNewActivityOpen, 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -189,5 +189,15 @@ public class ContactView extends Activity{
      	return contact;
    	
    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if (requestCode == 1) {
+        	finish();
+            
+        }
+    }
 	
 }

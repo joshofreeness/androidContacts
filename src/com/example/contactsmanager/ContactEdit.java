@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 
 public class ContactEdit extends Activity{
 	Context contextActivity=this;
+	Context contextApp;
 	//User can only select one image
 	private static final int PICK_IMAGE = 1;
 	
@@ -25,6 +26,7 @@ public class ContactEdit extends Activity{
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
         setContentView(R.layout.contact_edit);
+        contextApp = getApplicationContext();
         //extract what contact we are editing
         String name = myIntent.getStringExtra("name");
         ContactList cList = ContactList.getInstance();
@@ -112,13 +114,43 @@ public class ContactEdit extends Activity{
         		finish();
         		return true;
         	case R.id.action_save_contact_edit:
-        		//TODO: Save the contact
+        		ContactList list = ContactList.getInstance();
+        		getContact();
+        		list.updateContact(getContact(), contextApp);
+        		setResult(1, null);
         		finish();
         		return true;
         	default:
         		return super.onOptionsItemSelected(item);
     		
     	}
+    }
+    
+    private Contact getContact(){
+    	
+    	EditText firstNameEdit = (EditText)findViewById(R.id.contact_first_name_edit);
+        String firstName = firstNameEdit.getText().toString();
+        EditText lastNameEdit = (EditText)findViewById(R.id.contact_last_name_edit);
+        String lastName = lastNameEdit.getText().toString();
+        EditText hNum = (EditText)findViewById(R.id.contact_home_number_edit);
+        String home = hNum.getText().toString();
+        EditText wNum = (EditText)findViewById(R.id.contact_work_number_edit);
+        String work = wNum.getText().toString();
+        EditText mNum = (EditText)findViewById(R.id.contact_mobile_number_edit);
+        String mobile = mNum.getText().toString();
+        EditText emailEdit = (EditText)findViewById(R.id.contact_email_address_edit);
+        String email = emailEdit.getText().toString();
+        EditText homeAdd = (EditText)findViewById(R.id.contact_home_address_edit);
+        String homeAddress = homeAdd.getText().toString();
+        EditText dOBEdit = (EditText)findViewById(R.id.contact_date_of_birth_edit);
+        String dOB = dOBEdit.getText().toString();
+
+    	
+    	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
+    			homeAddress, dOB, "b");
+    	
+    	
+    	return contact;
     }
 
 }

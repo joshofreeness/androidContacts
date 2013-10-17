@@ -1,7 +1,5 @@
 package com.example.contactsmanager;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,31 +37,18 @@ public class ContactList {
 
 	   
 	   public void refreshList(Context context){
-		   //TODO:Query a database
-		   //will eventually query database
 		  
 		   SQLite db = new SQLite(context, null,null,1);
 		   list.clear();
 		   list.addAll(db.getAllContacts());
 		   
-//		   list.add(new Contact("sally","Suzan", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("Bob","richard", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("anne","McCaffery", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("The","Doctor", "1","1","1","the@doctor.time","tardis","22/3/-5","image.jpg"));
-//		   list.add(new Contact("sally","Blogs", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("Richard","Fran", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("Mum's","Uncle", "26459845","5645858","24652483","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("The","Master", "2","2","2","the@master.time","somewhere","22/3/-20","image.jpg"));
-//		   list.add(new Contact("That","Blogs", "264","558","2463","you@place.com","45 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("Albert","Longname", "245","564858","2483","you@place.com","13 road","22/3/195","image.jpg"));
-//		   list.add(new Contact("Pat","Postman", "21235","5567","78385","balck@cat.com","1 road","22/5/195","image.jpg"));
 	   }
 	   
 	   public boolean saveContact(Contact c, Context context){
 		   
 		   SQLite db = new SQLite(context, null,null,1);
-		   db.addContact(c);
-		   return true;
+		   return db.addContact(c);
+		   
   
 
 	   }
@@ -88,6 +73,11 @@ public class ContactList {
 			   return sortListFirstName(list);
 		   }
 		   
+	   }
+	   
+	   public void updateContact(Contact c, Context context){
+		   SQLite db = new SQLite(context,null,null,1);
+		   db.updateContact(c);
 	   }
 	   
 	   

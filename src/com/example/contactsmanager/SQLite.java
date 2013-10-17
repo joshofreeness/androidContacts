@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class SQLite extends SQLiteOpenHelper{
 	
@@ -65,8 +66,19 @@ public class SQLite extends SQLiteOpenHelper{
 	}
 	
 	// Adding new contact
-	public void addContact(Contact contact) {
-		SQLiteDatabase db = this.getWritableDatabase();
+	public boolean addContact(Contact contact) {
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME
+				+ " WHERE "+ CONTACT_FIRST_NAME + " = ?"
+				+ " AND " + CONTACT_LAST_NAME + " = ?", 
+				new String[] {contact.getFirstName(), contact.getLastName()});
+		
+		if (cursor.getCount() != 0){
+			return false;
+		}
+   
+
 		String[] cValues = contact.getDetails();
 	    ContentValues values = new ContentValues();
 	    
@@ -91,6 +103,7 @@ public class SQLite extends SQLiteOpenHelper{
 	        }
 	    
 	    db.close(); // Closing database connection
+	    return true;
 	}
 	 
 	// Getting single contact
