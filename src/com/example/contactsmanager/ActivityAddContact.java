@@ -1,5 +1,8 @@
 package com.example.contactsmanager;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -68,7 +73,6 @@ public class ActivityAddContact extends Activity{
         });
 
     }
-    
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -141,12 +145,20 @@ public class ActivityAddContact extends Activity{
         }
         
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
-        	//TODO: not working (Cannot decode because no such file)
-        	Uri selectedImageUri = intent.getData();
-            String filestring = selectedImageUri.getPath();
-            Bitmap photo = BitmapFactory.decodeFile(filestring);
+        	Uri selectedImage = intent.getData();
+        	InputStream imageStream = null;
+        	try {
+                imageStream = getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Bitmap photo = BitmapFactory.decodeStream(imageStream);
             ImageButton button = (ImageButton)findViewById(R.id.contact_image);
-        	button.setImageBitmap(photo);
+        	//button.setImageBitmap(photo);
+        	Drawable draw = new BitmapDrawable(getResources(),  photo);
+        	button.setBackground(draw);
+        	button.setImageResource(android.R.color.transparent);
         }
         
 //        if(data != null)

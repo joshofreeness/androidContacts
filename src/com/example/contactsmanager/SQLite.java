@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 public class SQLite extends SQLiteOpenHelper{
 	
@@ -88,7 +87,7 @@ public class SQLite extends SQLiteOpenHelper{
 	    values.put(CONTACT_WORK_NO, cValues[3]); 
 	    values.put(CONTACT_MOBILE_NO, cValues[4]); 
 	    values.put(CONTACT_EMAIL, cValues[5]); 
-	    values.put(CONTACT_HOME_NO, cValues[6]); 
+	    values.put(CONTACT_ADDRESS, cValues[6]); 
 	    values.put(CONTACT_DOB, cValues[7]); 
 	    values.put(CONTACT_PHOTO, cValues[8]); 
 	 
@@ -152,7 +151,7 @@ public class SQLite extends SQLiteOpenHelper{
 	    values.put(CONTACT_WORK_NO, cValues[3]); 
 	    values.put(CONTACT_MOBILE_NO, cValues[4]); 
 	    values.put(CONTACT_EMAIL, cValues[5]); 
-	    values.put(CONTACT_HOME_NO, cValues[6]); 
+	    values.put(CONTACT_ADDRESS, cValues[6]); 
 	    values.put(CONTACT_DOB, cValues[7]); 
 	    values.put(CONTACT_PHOTO, cValues[8]); 
 	    // updating row

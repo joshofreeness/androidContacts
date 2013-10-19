@@ -7,8 +7,6 @@ import java.util.Comparator;
 
 import android.content.Context;
 
-
-
 public class ContactList {
 		//SINGLETON CLASS
 	   private static ContactList INSTANCE;
@@ -80,8 +78,6 @@ public class ContactList {
 		   db.updateContact(c);
 	   }
 	   
-	   
-	   
 	   private ArrayList<Contact> sortListFirstName(ArrayList<Contact> contacts) {
 		   //sort by first name
 		   Collections.sort(contacts, new Comparator<Contact>() {
@@ -93,6 +89,7 @@ public class ContactList {
 
 		   return contacts;
 	   }
+	   
 	   private ArrayList<Contact> sortListLastName(ArrayList<Contact> contacts) {
 		   //sort by last name
 		   Collections.sort(contacts, new Comparator<Contact>() {

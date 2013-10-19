@@ -22,9 +22,6 @@ public class ActivityMain extends Activity {
 	private Context context = this;
 	//have a refrence to a single array adapter
 	private StableArrayAdapter adapter;
-	
-	
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +53,7 @@ public class ActivityMain extends Activity {
               }
             });          
           }
-        
-  
-    
+ 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
@@ -98,8 +93,7 @@ public class ActivityMain extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
-    
+   
     private void openAdd(){
     	//new intent to add contact
     	Intent startNewActivityOpen = new Intent(ActivityMain.this, ActivityAddContact.class);
@@ -119,9 +113,6 @@ public class ActivityMain extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-    
-    
-
     
     private ArrayList<Contact> getListContacts(){
     	//get the contact list from the contactList
