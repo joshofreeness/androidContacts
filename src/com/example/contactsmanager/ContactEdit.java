@@ -1,12 +1,20 @@
 package com.example.contactsmanager;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +23,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
+@SuppressLint("NewApi")
 public class ContactEdit extends Activity{
 	Context contextActivity=this;
 	Context contextApp;
 	//User can only select one image
+	private static final int TAKE_IMAGE = 2;
 	private static final int PICK_IMAGE = 1;
 	
     @Override
@@ -82,7 +92,7 @@ public class ContactEdit extends Activity{
         	            		   
         	            		   Intent cameraIntent = new Intent(
         	            		            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        	            		    startActivityForResult(cameraIntent, 1);
+        	            		    startActivityForResult(cameraIntent, TAKE_IMAGE);
         	            		    //TODO: Store image in app (will also go to gallery)
         	            	   }
         	            		   
@@ -151,6 +161,37 @@ public class ContactEdit extends Activity{
     	
     	
     	return contact;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        
+        if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK) {  
+            Bitmap photo = (Bitmap) intent.getExtras().get("data"); 
+            ImageButton button = (ImageButton)findViewById(R.id.contact_image_edit);
+            Drawable draw = new BitmapDrawable(getResources(),  photo);
+        	button.setBackground(draw);
+        	button.setImageResource(android.R.color.transparent);
+        }
+        
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+        	Uri selectedImage = intent.getData();
+        	InputStream imageStream = null;
+        	try {
+                imageStream = getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Bitmap photo = BitmapFactory.decodeStream(imageStream);
+            ImageButton button = (ImageButton)findViewById(R.id.contact_image_edit);
+        	//button.setImageBitmap(photo);
+        	Drawable draw = new BitmapDrawable(getResources(),  photo);
+        	button.setBackground(draw);
+        	button.setImageResource(android.R.color.transparent);
+        }
+        
+
     }
 
 }

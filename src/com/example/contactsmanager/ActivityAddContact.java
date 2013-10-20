@@ -3,6 +3,7 @@ package com.example.contactsmanager;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
+@SuppressLint("NewApi")
 public class ActivityAddContact extends Activity{
 	Context context;
 	Context contextActivity=this;
@@ -141,7 +143,9 @@ public class ActivityAddContact extends Activity{
         if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK) {  
             Bitmap photo = (Bitmap) intent.getExtras().get("data"); 
             ImageButton button = (ImageButton)findViewById(R.id.contact_image);
-        	button.setImageBitmap(photo);
+            Drawable draw = new BitmapDrawable(getResources(),  photo);
+        	button.setBackground(draw);
+        	button.setImageResource(android.R.color.transparent);
         }
         
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
