@@ -2,6 +2,7 @@ package com.example.contactsmanager;
 
 import java.util.ArrayList;
 
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,7 +27,6 @@ public class ContactView extends Activity{
 	private String name;
 	Context cntxt;
 
-    @SuppressWarnings("deprecation")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,11 @@ public class ContactView extends Activity{
         dOB.setText(details[7]);
         ImageView image = (ImageView)findViewById(R.id.contact_image);
         //TODO: change when setup images details[8]
-        image.setImageResource(R.id.action_add_contact);
+        ImageManager manager = ImageManager.getInstance();
+        Bitmap bit = manager.getImage(details[8]);
+        Drawable draw = new BitmapDrawable(getResources(),  bit);
+    	image.setBackground(draw);
+    	image.setImageResource(android.R.color.transparent);        
         
         //the following allows the user to make calls, texts and emails form within the app
         

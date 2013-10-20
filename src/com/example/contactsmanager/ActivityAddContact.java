@@ -111,8 +111,12 @@ public class ActivityAddContact extends Activity{
             	EditText textDateOfBirth = (EditText)findViewById(R.id.contact_date_of_birth);
             	String dOB = textDateOfBirth.getText().toString();
             	
-            	TextView textURI = (TextView)findViewById(R.id.invisible);
-            	String uri = textURI.getText().toString();
+//            	TextView textURI = (TextView)findViewById(R.id.invisible);
+//            	String uri = textURI.getText().toString();
+            	ImageButton image =(ImageButton)findViewById(R.id.contact_image);
+            	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
+            	ImageManager manager = ImageManager.getInstance();
+            	String uri = manager.saveImage(bitmap, context);
             	
             	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
             			homeAddress, dOB, uri);
@@ -172,9 +176,5 @@ public class ActivityAddContact extends Activity{
 
     }
     
-    private void setInvisibleText(String s){
-    	TextView text = (TextView)findViewById(R.id.invisible);
-    	text.setText(s);
-    }
 
 }

@@ -4,7 +4,11 @@ package com.example.contactsmanager;
 import java.util.ArrayList;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +31,8 @@ public class StableArrayAdapter extends ArrayAdapter<Contact> {
 
 	  }
 
-	  @Override
+	  @SuppressLint("NewApi")
+	@Override
 	  public View getView(int position, View convertView, ViewGroup parent) {
 		  //set to be a custom layout
 	    LayoutInflater inflater = (LayoutInflater) context
@@ -41,7 +46,12 @@ public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	    numbers.setText((contacts.get(position)).getmNumber());
 	    //TODO: set image when that is setup
 	    String s = contacts.get(position).getImage();
+	    ImageManager manager = ImageManager.getInstance();
+	    Bitmap image = manager.getImage(s);
 	    imageView.setImageResource(R.drawable.ic_launcher);
+	    Drawable draw = new BitmapDrawable(context.getResources(),  image);
+    	imageView.setBackground(draw);
+    	imageView.setImageResource(android.R.color.transparent);  
 
 	    return rowView;
 	  }
