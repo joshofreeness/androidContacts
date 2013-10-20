@@ -1,5 +1,7 @@
 package com.example.contactsmanager;
 
+import android.graphics.Bitmap;
+
 
 
 public class Contact  {

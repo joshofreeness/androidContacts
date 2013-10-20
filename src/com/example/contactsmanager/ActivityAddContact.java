@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 @SuppressLint("NewApi")
@@ -110,8 +111,11 @@ public class ActivityAddContact extends Activity{
             	EditText textDateOfBirth = (EditText)findViewById(R.id.contact_date_of_birth);
             	String dOB = textDateOfBirth.getText().toString();
             	
+            	TextView textURI = (TextView)findViewById(R.id.invisible);
+            	String uri = textURI.getText().toString();
+            	
             	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
-            			homeAddress, dOB, "b");
+            			homeAddress, dOB, uri);
             	
             	ContactList list = ContactList.getInstance();
             	
@@ -168,6 +172,9 @@ public class ActivityAddContact extends Activity{
 
     }
     
-    
+    private void setInvisibleText(String s){
+    	TextView text = (TextView)findViewById(R.id.invisible);
+    	text.setText(s);
+    }
 
 }

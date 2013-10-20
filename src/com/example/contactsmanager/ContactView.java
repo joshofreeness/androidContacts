@@ -2,11 +2,15 @@ package com.example.contactsmanager;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,12 +20,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("NewApi")
 public class ContactView extends Activity{
 	//contact currently viewing
 	private String name;
 	Context cntxt;
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
@@ -50,7 +56,7 @@ public class ContactView extends Activity{
         dOB.setText(details[7]);
         ImageView image = (ImageView)findViewById(R.id.contact_image);
         //TODO: change when setup images details[8]
-        image.setImageResource(R.drawable.ic_launcher);
+        image.setImageResource(R.id.action_add_contact);
         
         //the following allows the user to make calls, texts and emails form within the app
         
