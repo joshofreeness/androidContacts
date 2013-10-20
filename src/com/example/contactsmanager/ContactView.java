@@ -25,7 +25,7 @@ public class ContactView extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent myIntent = getIntent();
-        setContentView(R.layout.contact_view);
+        setContentView(R.layout.contact_view_1);
         //get name of contact to be viewed
         name = myIntent.getStringExtra("name");
         cntxt = getApplicationContext();

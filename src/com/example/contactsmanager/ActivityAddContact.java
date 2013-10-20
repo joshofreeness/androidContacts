@@ -161,12 +161,6 @@ public class ActivityAddContact extends Activity{
         	button.setImageResource(android.R.color.transparent);
         }
         
-//        if(data != null)
-//        {           
-//            Uri selectedImageUri = data.getData();
-//            filestring = selectedImageUri.getPath();
-//
-//          Bitmap thumbnail = BitmapFactory.decodeFile(filestring, options2);
 
     }
     
