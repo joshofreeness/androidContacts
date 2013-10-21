@@ -44,10 +44,10 @@ public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	    TextView numbers = (TextView) rowView.findViewById(R.id.secondLine);
 	    textView.setText((contacts.get(position)).getFullName());
 	    numbers.setText((contacts.get(position)).getmNumber());
-	    //TODO: set image when that is setup
+	    
 	    String s = contacts.get(position).getImage();
 	    ImageManager manager = ImageManager.getInstance();
-	    Bitmap image = manager.getImage(s);
+	    Bitmap image = manager.getImage(s, 60);
 	    imageView.setImageResource(R.drawable.ic_launcher);
 	    Drawable draw = new BitmapDrawable(context.getResources(),  image);
     	imageView.setBackground(draw);

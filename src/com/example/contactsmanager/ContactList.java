@@ -52,9 +52,12 @@ public class ContactList {
 	   }
 	   
 	   public boolean deleteContact(Contact c, Context context){
-		   
+		   //delete from database
 		   SQLite db = new SQLite(context, null,null,1);
 		   db.deleteContact(c);
+		   //delete image
+		   ImageManager manager = ImageManager.getInstance();
+		   manager.deleteImage(c);
 		   return true;
   
 
