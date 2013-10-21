@@ -46,12 +46,14 @@ public class StableArrayAdapter extends ArrayAdapter<Contact> {
 	    numbers.setText((contacts.get(position)).getmNumber());
 	    
 	    String s = contacts.get(position).getImage();
-	    ImageManager manager = ImageManager.getInstance();
-	    Bitmap image = manager.getImage(s, 60);
-	    imageView.setImageResource(R.drawable.ic_launcher);
-	    Drawable draw = new BitmapDrawable(context.getResources(),  image);
-    	imageView.setBackground(draw);
-    	imageView.setImageResource(android.R.color.transparent);  
+	    BitmapWorkerOpen task = new BitmapWorkerOpen(imageView);
+	    task.execute(s);
+//	    ImageManager manager = ImageManager.getInstance();
+//	    Bitmap image = manager.getImage(s, 60);
+//	    imageView.setImageResource(R.drawable.ic_launcher);
+//	    Drawable draw = new BitmapDrawable(context.getResources(),  image);
+//    	imageView.setBackground(draw);
+//    	imageView.setImageResource(android.R.color.transparent);  
 
 	    return rowView;
 	  }

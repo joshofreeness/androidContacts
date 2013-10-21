@@ -56,11 +56,13 @@ public class ContactView extends Activity{
         dOB.setText(details[7]);
         ImageView image = (ImageView)findViewById(R.id.contact_image);
        //gets the image manager and then image
-        ImageManager manager = ImageManager.getInstance();
-        Bitmap bit = manager.getImage(details[8], 120);
-        Drawable draw = new BitmapDrawable(getResources(),  bit);
+        //ImageManager manager = ImageManager.getInstance();
+        //Bitmap bit = manager.getImage(details[8], 120);
+        //Drawable draw = new BitmapDrawable(getResources(),  bit);
     	//image.setBackground(draw);
-    	image.setImageDrawable(draw);
+    	//image.setImageDrawable(draw);
+    	BitmapWorkerOpen task = new BitmapWorkerOpen(image);
+	    task.execute(details[8]);
     	//image.setImageResource(android.R.color.transparent);        
         
         //the following allows the user to make calls, texts and emails form within the app

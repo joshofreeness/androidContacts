@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 public class ImageManager {
 	private static ImageManager INSTANCE;
@@ -34,19 +35,24 @@ public class ImageManager {
 		return myBit;
 	}
 	
-	public String saveImage(Bitmap b, Context c){
+	public String saveImage(final Bitmap b, final Context c){
 		
 		//save image with 90% compression and return the name of the file
-		FileOutputStream outputStream;
-		int i = getFileNum(c);
+		
+		final int i = getFileNum(c);
+		new Thread(new Runnable() {
+		    public void run() {
 
-		try {
-		  outputStream = new FileOutputStream(c.getFilesDir().getPath() + fileName + i + ".png");
-		  b.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
-		  outputStream.close();
-		} catch (Exception e) {
-		  e.printStackTrace();
-		}
+		    	try {
+		    		FileOutputStream outputStream = new FileOutputStream(c.getFilesDir().getPath() + fileName + i + ".png");
+		    		b.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
+		    		outputStream.close();
+		    	
+		    	} catch (Exception e) {
+		    		e.printStackTrace();
+		    	}
+		    }
+		  }).start();
 		return c.getFilesDir().getPath()+fileName + i + ".png";
 	}
 	

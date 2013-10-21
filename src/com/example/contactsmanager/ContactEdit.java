@@ -71,7 +71,10 @@ public class ContactEdit extends Activity{
         
         
         ImageButton image = (ImageButton)findViewById(R.id.contact_image_edit);
-        //TODO: change when setup images details[8]
+        
+        BitmapWorkerOpen task = new BitmapWorkerOpen(image);
+	    task.execute(details[8]);
+	    
         image.setImageResource(R.drawable.ic_launcher);
         image.setOnClickListener(new View.OnClickListener(){
         	public void onClick(View v){
@@ -154,10 +157,15 @@ public class ContactEdit extends Activity{
         String homeAddress = homeAdd.getText().toString();
         EditText dOBEdit = (EditText)findViewById(R.id.contact_date_of_birth_edit);
         String dOB = dOBEdit.getText().toString();
+        
+        ImageButton image =(ImageButton)findViewById(R.id.contact_image);
+    	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
+    	ImageManager manager = ImageManager.getInstance();
+    	String uri = manager.saveImage(bitmap, contextApp);
 
     	
     	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
-    			homeAddress, dOB, "b");
+    			homeAddress, dOB, uri);
     	
     	
     	return contact;
