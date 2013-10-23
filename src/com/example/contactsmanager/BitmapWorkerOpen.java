@@ -20,7 +20,7 @@ public class BitmapWorkerOpen extends AsyncTask<String, Void, Bitmap>{
 	@Override
 	protected Bitmap doInBackground(String... params) {
 		ImageManager manager = ImageManager.getInstance();
-		return manager.getImage(params[0], 60);
+		return manager.getImage(params[0], 200);
 		
 	}
 	

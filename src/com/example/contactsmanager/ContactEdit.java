@@ -30,6 +30,8 @@ public class ContactEdit extends Activity{
 	//User can only select one image
 	private static final int TAKE_IMAGE = 2;
 	private static final int PICK_IMAGE = 1;
+	private Boolean editedImage = false;
+	private String oldURI;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class ContactEdit extends Activity{
         home.setText(details[6]);
         EditText dOB = (EditText)findViewById(R.id.contact_date_of_birth_edit);
         dOB.setText(details[7]);
-       
+       oldURI = details[8];
         
         
         ImageButton image = (ImageButton)findViewById(R.id.contact_image_edit);
@@ -157,11 +159,15 @@ public class ContactEdit extends Activity{
         String homeAddress = homeAdd.getText().toString();
         EditText dOBEdit = (EditText)findViewById(R.id.contact_date_of_birth_edit);
         String dOB = dOBEdit.getText().toString();
-        
-        ImageButton image =(ImageButton)findViewById(R.id.contact_image);
-    	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
-    	ImageManager manager = ImageManager.getInstance();
-    	String uri = manager.saveImage(bitmap, contextApp);
+        String uri;
+        if (editedImage){
+        	ImageButton image =(ImageButton)findViewById(R.id.contact_image_edit);
+        	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
+        	ImageManager manager = ImageManager.getInstance();
+        	uri = manager.saveImage(bitmap, contextApp);
+        } else {
+        	uri = oldURI;
+        }
 
     	
     	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
@@ -180,6 +186,7 @@ public class ContactEdit extends Activity{
             Drawable draw = new BitmapDrawable(getResources(),  photo);
         	button.setBackground(draw);
         	button.setImageResource(android.R.color.transparent);
+        	editedImage = true;
         }
         
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
@@ -197,6 +204,7 @@ public class ContactEdit extends Activity{
         	Drawable draw = new BitmapDrawable(getResources(),  photo);
         	button.setBackground(draw);
         	button.setImageResource(android.R.color.transparent);
+        	editedImage = true;
         }
         
 

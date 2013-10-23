@@ -42,10 +42,12 @@ public class ImageManager {
 		final int i = getFileNum(c);
 		new Thread(new Runnable() {
 		    public void run() {
-
+		    	
+		    	Bitmap bit = Bitmap.createScaledBitmap(b, 1000, 1000, true);
+		    		
 		    	try {
 		    		FileOutputStream outputStream = new FileOutputStream(c.getFilesDir().getPath() + fileName + i + ".png");
-		    		b.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
+		    		bit.compress(Bitmap.CompressFormat.PNG, 90, outputStream);
 		    		outputStream.close();
 		    	
 		    	} catch (Exception e) {
