@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 public class ImageManager {
 	private static ImageManager INSTANCE;
@@ -75,9 +74,9 @@ public class ImageManager {
 		return i;
 	}
 	
-	public boolean deleteImage(Contact c){
-		String s = c.getImage();
-		File file = new File(s);
+	public boolean deleteImage(String uri){
+		
+		File file = new File(uri);
 		boolean deleted = file.delete();
 		return deleted;
 	}

@@ -40,6 +40,15 @@ public class ContactList {
 		   list.clear();
 		   list.addAll(db.getAllContacts());
 		   
+		   if (_sortBy == sortType.firstName){
+			   sortListFirstName(list);
+		   }else if (_sortBy == sortType.lastName){
+			   sortListLastName(list);
+		   } else{
+			   //if default or error(i.e. enum not set to value)
+			   sortListFirstName(list);
+		   }
+		   
 	   }
 	   
 	   public boolean saveContact(Contact c, Context context){
@@ -57,7 +66,8 @@ public class ContactList {
 		   db.deleteContact(c);
 		   //delete image
 		   ImageManager manager = ImageManager.getInstance();
-		   manager.deleteImage(c);
+		   String s = c.getImage();
+		   manager.deleteImage(s);
 		   return true;
   
 

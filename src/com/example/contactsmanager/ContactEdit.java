@@ -164,6 +164,7 @@ public class ContactEdit extends Activity{
         	ImageButton image =(ImageButton)findViewById(R.id.contact_image_edit);
         	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
         	ImageManager manager = ImageManager.getInstance();
+        	manager.deleteImage(oldURI);
         	uri = manager.saveImage(bitmap, contextApp);
         } else {
         	uri = oldURI;
