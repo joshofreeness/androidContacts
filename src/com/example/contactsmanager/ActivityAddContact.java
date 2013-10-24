@@ -29,6 +29,7 @@ public class ActivityAddContact extends Activity{
 	//only allow one image to be selected;
 	private static final int TAKE_IMAGE = 2;
 	private static final int PICK_IMAGE = 1;
+	private Boolean editedImage = false;
 	
 	
     @Override
@@ -60,7 +61,7 @@ public class ActivityAddContact extends Activity{
         	            		   Intent cameraIntent = new Intent(
         	            		            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         	            		    startActivityForResult(cameraIntent, TAKE_IMAGE);
-        	            		    //TODO: Store image in app (will also go to gallery)
+        	            		   
         	            	   }
         	            		   
         	            	   
@@ -109,13 +110,17 @@ public class ActivityAddContact extends Activity{
             	
             	EditText textDateOfBirth = (EditText)findViewById(R.id.contact_date_of_birth);
             	String dOB = textDateOfBirth.getText().toString();
-            	
-//            	TextView textURI = (TextView)findViewById(R.id.invisible);
-//            	String uri = textURI.getText().toString();
+
             	ImageButton image =(ImageButton)findViewById(R.id.contact_image);
-            	Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
-            	ImageManager manager = ImageManager.getInstance();
-            	String uri = manager.saveImage(bitmap, context);
+            	//get bitmap
+            	String uri = "";
+            	if (editedImage){
+            		Bitmap bitmap = ((BitmapDrawable)image.getBackground()).getBitmap();
+            		//get manager instance
+            		ImageManager manager = ImageManager.getInstance();
+            		//save the image and then store uri
+            		uri = manager.saveImage(bitmap, context);
+            	}
             	
             	Contact contact = new Contact(firstName, lastName, home, work, mobile, email,
             			homeAddress, dOB, uri);
@@ -153,6 +158,7 @@ public class ActivityAddContact extends Activity{
             Drawable draw = new BitmapDrawable(getResources(),  photo);
         	button.setBackground(draw);
         	button.setImageResource(android.R.color.transparent);
+        	editedImage = true;
         }
         
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
@@ -161,7 +167,7 @@ public class ActivityAddContact extends Activity{
         	try {
                 imageStream = getContentResolver().openInputStream(selectedImage);
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                
                 e.printStackTrace();
             }
             Bitmap photo = BitmapFactory.decodeStream(imageStream);
@@ -170,7 +176,10 @@ public class ActivityAddContact extends Activity{
         	Drawable draw = new BitmapDrawable(getResources(),  photo);
         	button.setBackground(draw);
         	button.setImageResource(android.R.color.transparent);
+        	editedImage = true;
         }
+        
+        
         
 
     }

@@ -123,7 +123,7 @@ public class ActivityMain extends Activity {
     }
     
     public void updatedData() {
-
+    	//refresh contact list and then tell the array adapter about it
         adapter.clear(); 
         ContactList cList = ContactList.getInstance();
         cList.refreshList(context);
